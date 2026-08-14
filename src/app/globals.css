@@ -1,26 +1,27 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@plugin "daisyui" {
+  themes: mytheme --default, mytheme-dark --prefersdark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  default: true;
+  color-scheme: light;
+  --color-primary: #C7844F;         /* terracotta - buttons, links, accents */
+  --color-primary-content: #ffffff;
+  --color-secondary: #2B1E16;       /* deep brown - nav, footer, dark sections */
+  --color-base-100: #ffffff;        /* main background */
+  --color-base-200: #F2EEEA;        /* cream alternating sections */
+  --color-base-content: #1F1710;    /* main text color */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@plugin "daisyui/theme" {
+  name: "mytheme-dark";
+  color-scheme: dark;
+  --color-primary: #C7844F;         /* same accent, unchanged */
+  --color-primary-content: #ffffff;
+  --color-secondary: #F2EEEA;
+  --color-base-100: #18100B;        /* was white, now near-black */
+  --color-base-200: #302A27;        /* was cream, now warm dark brown */
+  --color-base-content: #ffffff;    /* was dark text, now white */
 }
