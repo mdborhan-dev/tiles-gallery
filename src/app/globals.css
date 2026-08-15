@@ -13,6 +13,7 @@
   --color-base-100: #ffffff;        /* main background */
   --color-base-200: #F2EEEA;        /* cream alternating sections */
   --color-base-content: #1F1710;    /* main text color */
+  
 }
 
 @plugin "daisyui/theme" {
@@ -24,4 +25,7 @@
   --color-base-100: #18100B;        /* was white, now near-black */
   --color-base-200: #302A27;        /* was cream, now warm dark brown */
   --color-base-content: #ffffff;    /* was dark text, now white */
+}
+@theme {
+  --color-secondary-text: #938D85;
 }
