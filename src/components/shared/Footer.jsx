@@ -9,9 +9,9 @@ import { IoLocationSharp } from "react-icons/io5";
 
 const Footer = () => {
   return (
-    <div className="p-20 bg-[#2B1E16] pb-5">
+    <div className="p-6 sm:p-20 bg-[#2B1E16] pb-5">
       <div className="container mx-auto">
-        <div className="grid grid-cols-3 justify-between items-start gap-10 text-secondary-text">
+        <div className="grid grid-cols-1 sm:grid-cols-3 justify-between items-start gap-4 sm:gap-10 text-secondary-text">
           {/* logo and description */}
           <div className="flex flex-col items-start gap-3 w-fit">
             <Link
@@ -53,8 +53,8 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-
-          <div className="flex justify-evenly items-start gap-4">
+{/* about */}
+          <div className="flex justify-start sm:justify-evenly items-start gap-4">
             <div className="flex flex-col justify-start gap-2.5">
               <h2 className="text-2xl font-semibold text-white">About</h2>
               <ul className="flex flex-col gap-1 text-lg">

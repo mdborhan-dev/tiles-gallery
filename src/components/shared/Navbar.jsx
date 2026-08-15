@@ -94,7 +94,7 @@ const Navbar = () => {
 
         <div className="flex flex-col justify-evenly items-center w-full">
           <button className="btn btn-primary btn-md w-full">Logout</button>
-          <button className="btn btn-primary btn-md w-full">My profile</button>
+          <button onClick={() => setIsOpen(false)} className="btn btn-primary btn-md w-full">My profile</button>
         </div>
       </div>
     </div>
