@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
 import Link from "next/link";
@@ -52,26 +52,63 @@ const Footer = () => {
                 <FaYoutube className="text-2xl" />
               </Link>
             </div>
+            {/* toggle Theme */}
+            {/* <div>
+              <label className="flex cursor-pointer gap-2">
+                <span>Current</span>
+                <input
+                  type="checkbox"
+                  value="mytheme-dark"
+                  className="toggle theme-controller"
+                />
+                <span>Synthwave</span>
+              </label>
+            </div> */}
           </div>
-{/* about */}
+          {/* about */}
           <div className="flex justify-start sm:justify-evenly items-start gap-4">
             <div className="flex flex-col justify-start gap-2.5">
               <h2 className="text-2xl font-semibold text-white">About</h2>
               <ul className="flex flex-col gap-1 text-lg">
                 <li>
-                  <Link href={"/about-us"} className="hover:text-primary transition-colors">About us</Link>
+                  <Link
+                    href={"/about-us"}
+                    className="hover:text-primary transition-colors"
+                  >
+                    About us
+                  </Link>
                 </li>
                 <li>
-                  <Link href={"/services"} className="hover:text-primary transition-colors">Our services</Link>
+                  <Link
+                    href={"/services"}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Our services
+                  </Link>
                 </li>
                 <li>
-                  <Link href={"/our-team"} className="hover:text-primary transition-colors">Meet the team</Link>
+                  <Link
+                    href={"/our-team"}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Meet the team
+                  </Link>
                 </li>
                 <li>
-                  <Link href={"/blog"} className="hover:text-primary transition-colors">Recent News</Link>
+                  <Link
+                    href={"/blog"}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Recent News
+                  </Link>
                 </li>
                 <li>
-                  <Link href={"/contact"} className="hover:text-primary transition-colors">Contact</Link>
+                  <Link
+                    href={"/contact"}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Contact
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -79,24 +116,41 @@ const Footer = () => {
 
           <div className="flex flex-col items-start gap-4">
             <div>
-              <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">
+                Contact Us
+              </h2>
               <div className="flex flex-col gap-3 text-sm">
                 <p className="flex items-start gap-2">
-                  <IoLocationSharp className="text-primary shrink-0 mt-1" /> 
-                  <span>Shimultola road, mirpur dhaka, pirerbag, dhaka 1216</span>
+                  <IoLocationSharp className="text-primary shrink-0 mt-1" />
+                  <span>
+                    Shimultola road, mirpur dhaka, pirerbag, dhaka 1216
+                  </span>
                 </p>
                 <p className="flex items-center gap-2">
-                  <IoIosSend className="text-primary shrink-0" /> 
-                  <Link href="mailto:info@tilora.com" className="hover:text-primary transition-colors">info@tilora.com</Link>
+                  <IoIosSend className="text-primary shrink-0" />
+                  <Link
+                    href="mailto:info@tilora.com"
+                    className="hover:text-primary transition-colors"
+                  >
+                    info@tilora.com
+                  </Link>
                 </p>
                 <p className="flex items-center gap-2">
-                  <FaPhoneVolume className="text-primary shrink-0" /> 
-                  <Link href="tel:+8801723417228" className="hover:text-primary transition-colors">+8801723417228</Link>
+                  <FaPhoneVolume className="text-primary shrink-0" />
+                  <Link
+                    href="tel:+8801723417228"
+                    className="hover:text-primary transition-colors"
+                  >
+                    +8801723417228
+                  </Link>
                 </p>
               </div>
             </div>
 
-            <form className="flex flex-col gap-3 w-full mt-2" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="flex flex-col gap-3 w-full mt-2"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <input
                 type="email"
                 placeholder="Your email"
@@ -109,9 +163,9 @@ const Footer = () => {
                 required
                 className="textarea w-full bg-base-100 border-2 border-[#DAD8D5] text-secondary-text placeholder:text-secondary-text focus:outline-none focus:border-primary transition-colors resize-none"
               />
-              <button 
-              onClick={(e)=>e.preventDefault}
-                type="submit" 
+              <button
+                onClick={(e) => e.preventDefault}
+                type="submit"
                 className="btn btn-primary border-primary w-full font-semibold tracking-wide hover:shadow-lg transition-all duration-200"
               >
                 Send Message
@@ -121,11 +175,13 @@ const Footer = () => {
         </div>
 
         <div className="divider before:bg-secondary-text after:bg-secondary-text"></div>
-        
+
         <div className="flex justify-between items-center text-secondary-text text-sm">
           <small>&copy; copyright 2026, tilora</small>
           <small>
-            <Link href={"/"} className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link href={"/"} className="hover:text-primary transition-colors">
+              Privacy Policy
+            </Link>
           </small>
         </div>
       </div>
