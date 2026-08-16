@@ -8,9 +8,9 @@ const AllTilesPage = async () => {
         <div className="container mx-auto">
             <h2 className="text-center text-4xl font-bold">Browse All Tiles</h2>
             <div>
-
+                
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {
                     tiles.map(tile=><AllPageTileCard key={tile.id} tile={tile}/>)
                 }

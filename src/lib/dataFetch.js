@@ -19,3 +19,8 @@ export const getTilesData = async () => {
   const data = await res.json();
   return data;
 };
+export const getTilesDataByID = async (id) => {
+  const res = await fetch(`${tilesData}/${id}`);
+  const data = await res.json();
+  return data;
+};

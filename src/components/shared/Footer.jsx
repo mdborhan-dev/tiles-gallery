@@ -52,18 +52,8 @@ const Footer = () => {
                 <FaYoutube className="text-2xl" />
               </Link>
             </div>
-            {/* toggle Theme */}
-            {/* <div>
-              <label className="flex cursor-pointer gap-2">
-                <span>Current</span>
-                <input
-                  type="checkbox"
-                  value="mytheme-dark"
-                  className="toggle theme-controller"
-                />
-                <span>Synthwave</span>
-              </label>
-            </div> */}
+
+
           </div>
           {/* about */}
           <div className="flex justify-start sm:justify-evenly items-start gap-4">
