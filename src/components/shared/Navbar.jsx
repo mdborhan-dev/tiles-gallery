@@ -12,8 +12,9 @@ const Navbar = () => {
   return (
     <div className="container mx-auto flex items-center justify-between py-5">
       <Link className="flex flex-nowrap gap-1.5 items-center justify-start btn bg-transparent border-0 hover:bg-transparent hover:border-0" href="/">
-        <Image src={logo} alt="Tilora logo" width={40} height={40} />
-        <h2 className="font-bold text-4xl">tilora</h2>
+        <Image src={logo} alt="Tilora logo" width={40} height={40} className="max-sm:hidden" />
+        <Image src={logo} alt="Tilora logo" width={30} height={30} className="sm:hidden" />
+        <h2 className="font-bold text-3xl sm:text-4xl">tilora</h2>
       </Link>
       <ul className="hidden sm:flex justify-center items-center gap-4">
         <li>

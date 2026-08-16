@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import Link from "next/link";
-import cardImageNotFound from "@/assets/cardImageNotFound.png"
 import { FiArrowRight } from "react-icons/fi";
+import cardImageNotFound from "@/assets/cardImageNotFound.png"
 
-const AllPageTileCard = ({ tile }) => {
+const ShowCaseHomepage = ({ tile }) => {
   const [hovered, setHovered] = useState(false);
 
   const cardSpring = useSpring({
@@ -22,7 +22,8 @@ const AllPageTileCard = ({ tile }) => {
     transform: hovered ? "scale(1.1)" : "scale(1)",
     config: { tension: 300, friction: 20 },
   });
-    const buttonSpring = useSpring({
+
+  const buttonSpring = useSpring({
     opacity: hovered ? 1 : 0,
     maxHeight: hovered ? 52 : 0,
     marginTop: hovered ? 16 : 0,
@@ -30,7 +31,7 @@ const AllPageTileCard = ({ tile }) => {
   });
 
   return (
- <Link href={`/tile/${tile.id}`} className="h-full block">
+    <Link href={`/tile/${tile.id}`} className="h-full block">
       <animated.div
         style={cardSpring}
         onMouseEnter={() => setHovered(true)}
@@ -91,4 +92,4 @@ const AllPageTileCard = ({ tile }) => {
   );
 };
 
-export default AllPageTileCard;
+export default ShowCaseHomepage;

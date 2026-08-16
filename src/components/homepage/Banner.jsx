@@ -56,7 +56,7 @@ const Banner = () => {
   <div className="absolute inset-0 bg-black/50 pointer-events-none z-10" />
   <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 z-10 gap-5">
     <h2 className="text-3xl md:text-7xl font-bold text-primary">Discover Your Perfect Aesthetic</h2>
-    <Link href={"/all-tiles"} className='btn btn-primary border-0 btn-xl cursor-pointer hover:gap-3'>Browse More <span>|</span> <FaArrowRightLong/></Link>
+    <Link href={"/all-tiles"} className='btn btn-primary border-0 btn-xl cursor-pointer hover:gap-3'>Browse Now <span>|</span> <FaArrowRightLong/></Link>
   </div>
 </div>
   );

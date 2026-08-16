@@ -22,8 +22,7 @@ const Footer = () => {
               <h2 className="font-bold text-4xl text-base-100">tilora</h2>
             </Link>
             <p className="text-xl w-78 leading-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-              neque tenetur totam.
+              Tilora is your premier destination for premium tiles, offering an extensive collection of ceramic, porcelain, and natural stone designs to transform any space
             </p>
             {/* social */}
             <div className="flex items-center justify-start gap-2">

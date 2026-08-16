@@ -1,31 +1,29 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: mytheme --default, mytheme-dark --prefersdark;
+  themes:
+    mytheme --default,
+    mytheme-dark --prefersdark;
 }
 
 @plugin "daisyui/theme" {
   name: "mytheme";
   default: true;
   color-scheme: light;
-  --color-primary: #C7844F;         /* terracotta - buttons, links, accents */
+  --color-primary: #c7844f; /* terracotta - buttons, links, accents */
   --color-primary-content: #ffffff;
-  --color-secondary: #2B1E16;       /* deep brown - nav, footer, dark sections */
-  --color-base-100: #ffffff;        /* main background */
-  --color-base-200: #F2EEEA;        /* cream alternating sections */
-  --color-base-content: #1F1710;    /* main text color */
-  
-}
+  --color-secondary: #2b1e16; /* deep brown - nav, footer, dark sections */
+  --color-base-100: #ffffff; /* main background */
+  --color-base-200: #f2eeea; /* cream alternating sections */
+  --color-base-content: #1f1710; /* main text color */
+  --color-success: #10b981; /* green for success badges */
+  --color-success-content: #ffffff;
 
-@plugin "daisyui/theme" {
-  name: "mytheme-dark";
-  color-scheme: dark;
-  --color-primary: #C7844F;         /* same accent, unchanged */
-  --color-primary-content: #ffffff;
-  --color-secondary: #F2EEEA;
-  --color-base-100: #18100B;        /* was white, now near-black */
-  --color-base-200: #302A27;        /* was cream, now warm dark brown */
-  --color-base-content: #ffffff;    /* was dark text, now white */
+  --color-warning: #f59e0b;
+  --color-warning-content: #ffffff;
+
+  --color-error: #ef4444; /* red for error badges */
+  --color-error-content: #ffffff;
 }
 @theme {
-  --color-secondary-text: #938D85;
+  --color-secondary-text: #938d85;
 }

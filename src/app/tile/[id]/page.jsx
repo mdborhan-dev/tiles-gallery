@@ -20,20 +20,28 @@ const TileDetails = async ({ params }) => {
 
         {/* Details */}
         <div className="w-full md:w-1/2 flex flex-col gap-3">
-          <p className="text-sm text-gray-500">{tile.brand} · {tile.sku}</p>
+          <p className="text-sm text-gray-500">
+            {tile.brand} · {tile.sku}
+          </p>
 
           <h1 className="text-4xl font-bold">{tile.shortDescription}</h1>
 
           <div className="flex items-center gap-2">
-            <span className="text-yellow-500 font-semibold">★ {tile.rating}</span>
-            <span className="text-gray-500 text-sm">({tile.reviewsCount} reviews)</span>
+            <span className="text-yellow-500 font-semibold">
+              ★ {tile.rating}
+            </span>
+            <span className="text-gray-500 text-sm">
+              ({tile.reviewsCount} reviews)
+            </span>
           </div>
 
           <p className="text-3xl font-bold text-primary">
             {tile.currency} {tile.price}
           </p>
 
-          <div className={`badge ${tile.inStock ? "badge-success" : "badge-error"}`}>
+          <div
+            className={`badge p-3 rounded-xl text-sm font-semibold shadow-sm ${tile.inStock ? "badge-success" : "badge-error"}`}
+          >
             {tile.inStock ? `In Stock (${tile.stockQuantity})` : "Out of Stock"}
           </div>
 
