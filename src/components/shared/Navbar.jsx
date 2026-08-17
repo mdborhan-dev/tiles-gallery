@@ -80,6 +80,7 @@ const Navbar = () => {
             onClick={async () => {
               await authClient.signOut();
               router.push("/");
+              setIsOpen(false)
             }}
             className="btn btn-primary"
           >
@@ -176,6 +177,7 @@ const Navbar = () => {
                 onClick={async () => {
                   await authClient.signOut();
                   router.push("/");
+                  setIsOpen(false)
                 }}
                 className="btn btn-primary btn-md w-full"
               >
@@ -184,7 +186,7 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <Link href={"/login"} className="btn btn-primary w-full">
+          <Link href={"/login"} onClick={() => setIsOpen(false)} className="btn btn-primary w-full">
             Login
           </Link>
         )}
