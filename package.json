@@ -9,11 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@better-auth/mongo-adapter": "^1.6.29",
     "@react-spring/web": "^10.1.2",
+    "better-auth": "^1.6.29",
+    "mongodb": "^7.5.0",
     "next": "16.3.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-fast-marquee": "^1.6.5",
+    "react-hook-form": "^7.85.0",
     "react-icons": "^5.7.0",
     "swiper": "^14.1.0"
   },
