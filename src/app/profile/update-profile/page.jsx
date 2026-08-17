@@ -2,9 +2,10 @@
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { Slide, toast } from "react-toastify";
 
 const UpdateProfile = () => {
-    const router = useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -20,15 +21,45 @@ const UpdateProfile = () => {
       updates.image = data.image;
     }
     if (Object.keys(updates).length === 0) {
-      alert("No changes to update");
+      toast.warn("No changes to update", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
       return;
     }
     try {
       await authClient.updateUser(updates);
-      alert("Updated!");
-      router.push("/profile")
+      toast.success("Updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+      router.push("/profile");
     } catch (error) {
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
     }
   };
 

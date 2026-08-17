@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaArrowRightLong, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
+import { Slide, toast } from "react-toastify";
 
 const Login = () => {
   const [isHidden, setIsHidden] = useState(true);
@@ -24,17 +25,49 @@ const Login = () => {
         callbackURL: "/",
       });
       if (error) {
-        alert(
+        toast.error(
           error.message ||
             "Login failed. Please check your email and password.",
+          {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Slide,
+          },
         );
         return;
       }
 
-      alert("Logged in successfully!");
+      toast.success("Logged in successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
     } catch (err) {
-      alert(
+      toast.warn(
         "Something went wrong. Please check your connection and try again.",
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
+        },
       );
     }
   };

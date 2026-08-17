@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaArrowRightLong, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
+import { Slide, toast } from "react-toastify";
 
 const Register = () => {
   const [isHidden, setIsHidden] = useState(true);
@@ -15,24 +16,42 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-const handleSubmitForm = async (data) => {
+  const handleSubmitForm = async (data) => {
+    const { data: SignupData, error: signUpError } =
+      await authClient.signUp.email({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        image: data.image,
+        callbackURL: "/",
+      });
 
+    if (signUpError) {
+      toast.error(signUpError.message || "Sign up failed. Please try again.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+      return;
+    }
 
-      const { data: SignupData, error: signUpError } =
-        await authClient.signUp.email({
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          image: data.image,
-          callbackURL: "/",
-        });
-
-      if (signUpError) {
-        alert(signUpError.message || "Sign up failed. Please try again.");
-        return;
-      }
-
-      alert("Account created successfully! Welcome, " + data.name);
+    toast.success("Account created successfully! Welcome, " + data.name, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+    });
   };
 
   return (
@@ -56,16 +75,31 @@ const handleSubmitForm = async (data) => {
             />
             <p className="label text-error">{errors.name?.message}</p>
           </fieldset>
-            {/* image */}
-            <fieldset className="fieldset">
-            <legend className="fieldset-legend text-md">Name</legend>
+          {/* image */}
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend text-md">Image</legend>
             <input
               type="text"
               className="input w-full"
-              {...register("image", { required: "Image Url is required" })}
+              {...register("image", {
+                required: "Image Url is required",
+                validate: {
+                  isValidUrl: (value) => {
+                    try {
+                      const url = new URL(value);
+                      return url.protocol === "http:" ||
+                        url.protocol === "https:"
+                        ? true
+                        : "URL must start with http:// or https://";
+                    } catch (error) {
+                      return "Please enter a valid URL";
+                    }
+                  },
+                },
+              })}
               placeholder="Enter your profile image url"
             />
-            <p className="label text-error">{errors.name?.message}</p>
+            <p className="label text-error">{errors.image?.message}</p>
           </fieldset>
 
           {/* email */}

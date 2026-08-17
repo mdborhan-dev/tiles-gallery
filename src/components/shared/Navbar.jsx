@@ -8,10 +8,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { PropagateLoader } from "react-spinners";
 
 const Navbar = () => {
+  const [imgError, setImgError] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
   const { data: session, isPending } = authClient.useSession();
@@ -51,26 +53,40 @@ const Navbar = () => {
         )}
       </ul>
       {isPending ? (
-        <span className="loading loading-dots loading-xs"></span>
+        <PropagateLoader color="#c88651"/>
       ) : session?.user ? (
-        <Link href={"/profile"} className="hidden sm:flex justify-end items-center gap-1.5">
-          <Image
-            src={session.user.image}
-            alt="User Avatar"
-            width={34}
-            height={34}
-            className="rounded-full"
-          />
+        <Link
+          href={"/profile"}
+          className="hidden sm:flex justify-end items-center gap-1.5"
+        >
+          {session.user.image && !imgError ? (
+            <Image
+              src={session.user.image}
+              alt="User Avatar"
+              width={34}
+              height={34}
+              className="rounded-full"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-[34px] h-[34px] rounded-full bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-600 text-sm font-bold">
+                {(session.user.name || session.user.email || "?")
+                  .charAt(0)
+                  .toUpperCase()}
+              </span>
+            </div>
+          )}
           <button
             onClick={async () => {
               await authClient.signOut();
-              router.push("/")
+              router.push("/");
             }}
             className="btn btn-primary"
           >
             Logout
           </button>
-        </Link >
+        </Link>
       ) : (
         <Link href={"/login"} className="btn btn-primary max-sm:hidden">
           Login
@@ -125,13 +141,24 @@ const Navbar = () => {
         ) : session?.user ? (
           <div>
             <div className="flex flex-col items-center justify-start gap-3 p-5 border-t border-base-300">
-              <Image
-                src={session?.user.image || userAvatar}
-                alt="User Avatar"
-                width={80}
-                height={80}
-                className="rounded-full"
-              />
+              {session?.user.image && !imgError ? (
+                <Image
+                  src={session.user.image}
+                  alt="User Avatar"
+                  width={80}
+                  height={80}
+                  className="rounded-full"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                  <span className="text-white text-3xl font-bold">
+                    {(session?.user.name || session?.user.email || "?")
+                      .charAt(0)
+                      .toUpperCase()}
+                  </span>
+                </div>
+              )}
               <h2 className="text-2xl font-semibold">
                 {/* {isPending ? "user Name" : `${session.user?.name}`} */}
                 {session?.user.name}
@@ -149,7 +176,7 @@ const Navbar = () => {
               <button
                 onClick={async () => {
                   await authClient.signOut();
-                  router.push("/")
+                  router.push("/");
                 }}
                 className="btn btn-primary btn-md w-full"
               >
