@@ -10,7 +10,7 @@ const NotFoundPage = () => {
         <Image src={notFoundPic} alt="404" width={820} height={620} />
         <h2 className="text-3xl font-semibold text-primary">Page not found</h2>
         <Link href={"/"}>
-          <button className="btn btn-primary btn-xl font-medium flex gap-2 transition-transform hover:scale-110">
+          <button className="btn btn-primary btn-xl font-medium flex gap-2 transition-transform hover:scale-110 max-sm:btn-lg">
             Back to home <span>|</span> <IoIosArrowRoundForward />
           </button>
         </Link>

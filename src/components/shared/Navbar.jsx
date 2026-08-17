@@ -52,30 +52,30 @@ const Navbar = () => {
         </li>
       </ul>
       {isPending ? (
-        <PropagateLoader color="#c88651" />
+        <PropagateLoader color="#c88651" className="max-sm:hidden" />
       ) : session?.user ? (
-        <Link
-          href={"/profile"}
-          className="hidden sm:flex justify-end items-center gap-1.5"
-        >
-          {session.user.image && !imgError ? (
-            <Image
-              src={session.user.image}
-              alt="User Avatar"
-              width={34}
-              height={34}
-              className="rounded-full"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div className="w-[34px] h-[34px] rounded-full bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-600 text-sm font-bold">
-                {(session.user.name || session.user.email || "?")
-                  .charAt(0)
-                  .toUpperCase()}
-              </span>
-            </div>
-          )}
+        <div className="hidden sm:flex justify-end items-center gap-1.5">
+          <Link href={"/profile"}>
+            {session.user.image && !imgError ? (
+              <Image
+                src={session.user.image}
+                alt="User Avatar"
+                width={34}
+                height={34}
+                className="rounded-full"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="w-[34px] h-[34px] rounded-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-600 text-sm font-bold">
+                  {(session.user.name || session.user.email || "?")
+                    .charAt(0)
+                    .toUpperCase()}
+                </span>
+              </div>
+            )}
+          </Link>
+
           <button
             onClick={async () => {
               await authClient.signOut();
@@ -85,7 +85,7 @@ const Navbar = () => {
           >
             Logout
           </button>
-        </Link>
+        </div>
       ) : (
         <Link href={"/login"} className="btn btn-primary max-sm:hidden">
           Login
