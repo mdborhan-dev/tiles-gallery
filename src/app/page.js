@@ -16,7 +16,7 @@ export default async function Home() {
       <div className="container mx-auto flex flex-col gap-4 my-10">
         <h2 className="text-5xl text-center font-bold">Featured</h2>
         <div className="divider"></div>
-        <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-stretch">
           {tiles.slice(0, 4).map((tile) => (
             <ShowCaseHomepage key={tile.id} tile={tile} />
           ))}
