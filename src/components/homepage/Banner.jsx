@@ -25,7 +25,6 @@ const Banner = () => {
   }, []);
 
  isLoading && <span className='spinner'></span>
-  console.log(images)
 
   return (
 <div className=" mx-auto relative aspect-video">

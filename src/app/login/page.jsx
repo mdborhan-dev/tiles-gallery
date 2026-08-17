@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,8 +15,28 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const handleSubmitForm = (data) => {
-    console.log("data", data);
+  const handleSubmitForm = async (data) => {
+    try {
+      const { data: SigninData, error } = await authClient.signIn.email({
+        email: data.email, // required
+        password: data.password, // required
+        rememberMe: true,
+        callbackURL: "/",
+      });
+      if (error) {
+        alert(
+          error.message ||
+            "Login failed. Please check your email and password.",
+        );
+        return;
+      }
+
+      alert("Logged in successfully!");
+    } catch (err) {
+      alert(
+        "Something went wrong. Please check your connection and try again.",
+      );
+    }
   };
 
   return (
@@ -77,7 +98,14 @@ const Login = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-ghost group text-xl bg-white">
+        <button
+          onClick={async () => {
+            const data = await authClient.signIn.social({
+              provider: "google",
+            });
+          }}
+          className="btn btn-ghost group text-xl bg-white"
+        >
           <FcGoogle />
           <span>Login With Google</span>
         </button>

@@ -6,14 +6,35 @@ import logo from "@/assets/logo.png";
 import { RiCloseFill, RiMenu3Fill } from "react-icons/ri";
 import { useState } from "react";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+
+  const router = useRouter()
+
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
   return (
     <div className="container mx-auto flex items-center justify-between py-5">
-      <Link className="flex flex-nowrap gap-1.5 items-center justify-start btn bg-transparent border-0 hover:bg-transparent hover:border-0" href="/">
-        <Image src={logo} alt="Tilora logo" width={40} height={40} className="max-sm:hidden" />
-        <Image src={logo} alt="Tilora logo" width={30} height={30} className="sm:hidden" />
+      <Link
+        className="flex flex-nowrap gap-1.5 items-center justify-start btn bg-transparent border-0 hover:bg-transparent hover:border-0"
+        href="/"
+      >
+        <Image
+          src={logo}
+          alt="Tilora logo"
+          width={40}
+          height={40}
+          className="max-sm:hidden"
+        />
+        <Image
+          src={logo}
+          alt="Tilora logo"
+          width={30}
+          height={30}
+          className="sm:hidden"
+        />
         <h2 className="font-bold text-3xl sm:text-4xl">tilora</h2>
       </Link>
       <ul className="hidden sm:flex justify-center items-center gap-4">
@@ -23,21 +44,38 @@ const Navbar = () => {
         <li>
           <NavLink href="/all-tiles">All Tiles</NavLink>
         </li>
-        <li>
-          <NavLink href="/profile">My Profile</NavLink>
-        </li>
+        {session?.user && (
+          <li>
+            <NavLink href="/profile">My Profile</NavLink>
+          </li>
+        )}
       </ul>
-      <div className="hidden sm:flex justify-end items-center gap-1.5">
-        <Image
-          src={userAvatar}
-          alt="User Avatar"
-          width={34}
-          height={34}
-          className="rounded-full"
-        />
-        <button className="btn btn-primary">Logout</button>
-        <button className="btn btn-primary hidden">Login</button>
-      </div>
+      {isPending ? (
+        <span className="loading loading-dots loading-xs"></span>
+      ) : session?.user ? (
+        <Link href={"/profile"} className="hidden sm:flex justify-end items-center gap-1.5">
+          <Image
+            src={session.user.image}
+            alt="User Avatar"
+            width={34}
+            height={34}
+            className="rounded-full"
+          />
+          <button
+            onClick={async () => {
+              await authClient.signOut();
+              router.push("/")
+            }}
+            className="btn btn-primary"
+          >
+            Logout
+          </button>
+        </Link >
+      ) : (
+        <Link href={"/login"} className="btn btn-primary max-sm:hidden">
+          Login
+        </Link>
+      )}
       <button
         onClick={() => setIsOpen(true)}
         className="block sm:hidden text-2xl font-medium p-4"
@@ -82,21 +120,48 @@ const Navbar = () => {
             </NavLink>
           </li> */}
         </ul>
-        <div className="flex flex-col items-center justify-start gap-3 p-5 border-t border-base-300">
-          <Image
-            src={userAvatar}
-            alt="User Avatar"
-            width={80}
-            height={80}
-            className="rounded-full"
-          />
-          <h2 className="text-2xl font-semibold">User Name</h2>
-        </div>
+        {isPending ? (
+          <span className="loading loading-dots loading-xs"></span>
+        ) : session?.user ? (
+          <div>
+            <div className="flex flex-col items-center justify-start gap-3 p-5 border-t border-base-300">
+              <Image
+                src={session?.user.image || userAvatar}
+                alt="User Avatar"
+                width={80}
+                height={80}
+                className="rounded-full"
+              />
+              <h2 className="text-2xl font-semibold">
+                {/* {isPending ? "user Name" : `${session.user?.name}`} */}
+                {session?.user.name}
+              </h2>
+            </div>
 
-        <div className="flex flex-col justify-evenly items-center w-full">
-          <button className="btn btn-primary btn-md w-full">Logout</button>
-          <button onClick={() => setIsOpen(false)} className="btn btn-primary btn-md w-full">My profile</button>
-        </div>
+            <div className="flex flex-col justify-evenly items-center w-full">
+              <Link
+                href={"/profile"}
+                onClick={() => setIsOpen(false)}
+                className="btn btn-primary btn-md w-full"
+              >
+                My profile
+              </Link>
+              <button
+                onClick={async () => {
+                  await authClient.signOut();
+                  router.push("/")
+                }}
+                className="btn btn-primary btn-md w-full"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        ) : (
+          <Link href={"/login"} className="btn btn-primary w-full">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

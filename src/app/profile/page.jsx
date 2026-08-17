@@ -1,134 +1,63 @@
 "use client";
-
-import { useState } from "react";
-import Image from "next/image";
-import { FiLogOut, FiEdit2, FiSave } from "react-icons/fi";
 import cardImageNotFound from "@/assets/cardImageNotFound.png";
+import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FiLogOut } from "react-icons/fi";
+import { MdEdit } from "react-icons/md";
 
-const MyProfilePage = () => {
-  // Placeholder user data
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    avatar: cardImageNotFound,
-  });
+const MyprofilePage = () => {
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const router = useRouter()
 
-  const handleSave = () => {
-    setUser({
-      ...user,
-      name: name,
-      email: email,
-    });
-    setIsEditing(false);
-  };
-
-  const handleLogout = () => {
-    // Add logout logic later
-    console.log("Logging out...");
-  };
+  // if(){
+  //  return
+  // }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-8">My Profile</h1>
-
-      <div className="bg-white rounded-lg shadow p-6">
-        {/* Avatar */}
-        <div className="flex flex-col items-center mb-6">
-          <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
-            <Image
-              src={user.avatar}
-              alt={user.name}
-              width={96}
-              height={96}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h2 className="text-xl font-semibold">{user.name}</h2>
-          <p className="text-gray-500">{user.email}</p>
-        </div>
-
-        {/* Profile Info */}
-        <div className="space-y-4">
-          {/* Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Name
-            </label>
-            {isEditing ? (
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-2 border rounded-md"
+    <div className="container mx-auto">
+      {isPending ? (
+        <span className="loading loading-dots loading-xl"></span>
+      ) : (
+        <div className="flex flex-col h-[70vh] justify-center items-center">
+          <div className="rounded-xl sm:w-5/12 mx-auto max-sm:w-full shadow-md p-6 items-center justify-center flex-col flex">
+          {/* <h1 className="text-center font-bold text-3xl sm:text-4xl mb-3">My profile</h1> */}
+            <div className="w-24 h-24 rounded-full overflow-hidden mb-4 mx-auto">
+              <Image
+                src={user.image || cardImageNotFound}
+                alt={user.name || "User avatar"}
+                width={96}
+                height={96}
+                className="w-full h-full object-cover"
               />
-            ) : (
-              <p className="p-2 bg-gray-50 rounded-md">{user.name}</p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            {isEditing ? (
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border rounded-md"
-              />
-            ) : (
-              <p className="p-2 bg-gray-50 rounded-md">{user.email}</p>
-            )}
-          </div>
-
-          {/* Buttons */}
-          <div className="flex gap-2 pt-4">
-            {isEditing ? (
-              <>
-                <button
-                  onClick={handleSave}
-                  className="px-4 py-2 bg-primary text-white rounded-md flex items-center gap-2"
-                >
-                  <FiSave /> Save
-                </button>
-                <button
-                  onClick={() => {
-                    setIsEditing(false);
-                    setName(user.name);
-                    setEmail(user.email);
-                  }}
-                  className="px-4 py-2 bg-gray-200 rounded-md"
-                >
-                  Cancel
-                </button>
-              </>
-            ) : (
+            </div>
+            <h2 className="text-xl font-semibold text-center">{user.name}</h2>
+            <p className="text-gray-500 text-center">{user.email}</p>
+            <div className="flex gap-2 mx-auto justify-center w-fit mt-3">
               <button
-                onClick={() => setIsEditing(true)}
-                className="px-4 py-2 bg-primary text-white rounded-md flex items-center gap-2"
+                onClick={async () => {
+                  await authClient.signOut();
+                  router.push("/")
+                }}
+                className="btn btn-error text-white rounded-md flex items-center gap-2"
               >
-                <FiEdit2 /> Edit Profile
+                <FiLogOut /> Logout
               </button>
-            )}
+              <Link href={"/profile/update-profile"}
+                className="btn  btn-primary text-white rounded-md flex items-center gap-2"
+              >
+                <MdEdit /> Edit Profile
+              </Link>
+              
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Logout */}
-      <button
-        onClick={handleLogout}
-        className="mt-6 px-4 py-2 bg-red-500 text-white rounded-md flex items-center gap-2"
-      >
-        <FiLogOut /> Logout
-      </button>
+      )}
     </div>
   );
 };
 
-export default MyProfilePage;
+export default MyprofilePage;

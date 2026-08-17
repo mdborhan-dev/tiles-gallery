@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,71 +15,24 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  // This function now needs to be ASYNC because uploading the image
-  // to imgbb is a network request — we have to WAIT for it to finish
-  // and give us back a URL before we can continue.
-  const handleSubmitForm = async (data) => {
-    console.log("raw form data", data);
+const handleSubmitForm = async (data) => {
 
-    // 1. Grab the image file from the form.
-    // react-hook-form gives us a FileList (even for a single file input),
-    // so we reach into it with [0] to get the actual File object.
-    const imageFile = data.image[0];
 
-    // 2. Create a FormData object.
-    // FormData is a special browser object built for sending files
-    // (unlike text data, files can't just be JSON.stringify'd).
-    const formData = new FormData();
+      const { data: SignupData, error: signUpError } =
+        await authClient.signUp.email({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          image: data.image,
+          callbackURL: "/",
+        });
 
-    // 3. Attach the file to the FormData under the key "image".
-    // This key name matters — it must match what imgbb's API expects.
-    formData.append("image", imageFile);
+      if (signUpError) {
+        alert(signUpError.message || "Sign up failed. Please try again.");
+        return;
+      }
 
-    // 4. Build the imgbb upload URL.
-    // imgbb expects your API key as a query parameter called "key".
-    // Store your API key in an env variable (NEXT_PUBLIC_ prefix
-    // is required so it's accessible in the browser).
-    const imgbbAPIKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
-    const imgbbURL = `https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`;
-
-    try {
-      // 5. Send the file to imgbb.
-      // Note: we do NOT manually set a Content-Type header here.
-      // The browser automatically sets the correct multipart header
-      // (with the required boundary string) when the body is FormData.
-      const res = await fetch(imgbbURL, {
-        method: "POST",
-        body: formData,
-      });
-
-      // 6. Parse imgbb's JSON response.
-      const imgbbResponse = await res.json();
-      console.log("imgbb response", imgbbResponse);
-
-      // 7. Pull out the actual hosted image URL.
-      // (Logged above first so you can confirm the exact shape —
-      // imgbb nests it inside data.url)
-      const imageURL = imgbbResponse.data.url;
-
-      // 8. Now build the final object you'd actually save —
-      // combining your normal form fields with the new image URL
-      // instead of the raw file.
-      const finalUserInfo = {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        image: imageURL,
-      };
-
-      console.log("final data ready to send to your backend:", finalUserInfo);
-
-      // Next step (not shown here) would be sending finalUserInfo
-      // to your own Render backend to actually create the user.
-    } catch (error) {
-      // Always handle the case where the image upload itself fails
-      // (bad network, wrong API key, etc.)
-      console.error("Image upload failed:", error);
-    }
+      alert("Account created successfully! Welcome, " + data.name);
   };
 
   return (
@@ -102,23 +56,16 @@ const Register = () => {
             />
             <p className="label text-error">{errors.name?.message}</p>
           </fieldset>
-
-          {/* image upload */}
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend text-md">Photo</legend>
-            {/*
-              type="file" makes the browser show its native file picker.
-              accept="image/*" restricts the picker to image files only
-              (JPEGs, PNGs, etc.) — this is just a UI hint, not real security,
-              but it's good practice.
-            */}
+            {/* image */}
+            <fieldset className="fieldset">
+            <legend className="fieldset-legend text-md">Name</legend>
             <input
-              type="file"
-              accept="image/*"
-              className="file-input w-full"
-              {...register("image", { required: "Photo is required" })}
+              type="text"
+              className="input w-full"
+              {...register("image", { required: "Image Url is required" })}
+              placeholder="Enter your profile image url"
             />
-            <p className="label text-error">{errors.image?.message}</p>
+            <p className="label text-error">{errors.name?.message}</p>
           </fieldset>
 
           {/* email */}
@@ -173,9 +120,16 @@ const Register = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-ghost group text-xl bg-white">
+        <button
+          onClick={async () => {
+            const data = await authClient.signIn.social({
+              provider: "google",
+            });
+          }}
+          className="btn btn-ghost group text-xl bg-white"
+        >
           <FcGoogle />
-          <span>Register With Google</span>
+          <span>Login With Google</span>
         </button>
       </div>
     </div>
