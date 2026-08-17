@@ -8,7 +8,7 @@ Tilora is an e-commerce browsing application for tiles and ceramics. It lets use
 
 ## Live URL
 
-[Add your deployed link here, e.g. https://tilora.vercel.app]
+[https://tilora.vercel.app](https://tiles-gallery-hazel.vercel.app/)
 
 ## Key Features
 
