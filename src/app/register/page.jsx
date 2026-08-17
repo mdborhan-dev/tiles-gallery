@@ -99,6 +99,7 @@ const Register = () => {
               })}
               placeholder="Enter your profile image url"
             />
+            <p className="label"><span className="font-semibold">NB:</span> If image link is invalid the first letter of the name will be shown as profile picture</p>
             <p className="label text-error">{errors.image?.message}</p>
           </fieldset>
 

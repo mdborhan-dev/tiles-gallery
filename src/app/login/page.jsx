@@ -7,6 +7,7 @@ import { FaArrowRightLong, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Slide, toast } from "react-toastify";
 
+
 const Login = () => {
   const [isHidden, setIsHidden] = useState(true);
 

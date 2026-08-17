@@ -1,9 +1,18 @@
 import { getTilesDataByID } from "@/lib/dataFetch";
 import Image from "next/image";
 
+export const generateMetadata = async ({ params }) => {
+  const { id } = await params;
+  const tile = await getTilesDataByID(id);
+  return {
+    title: tile.shortDescription,
+  };
+};
+
 const TileDetails = async ({ params }) => {
   const { id } = await params;
   const tile = await getTilesDataByID(id);
+  
 
   return (
     <div className="container mx-auto my-20 px-4">

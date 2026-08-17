@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Slide, toast } from "react-toastify";
 
+
+
 const UpdateProfile = () => {
   const router = useRouter();
   const {
@@ -94,6 +96,7 @@ const UpdateProfile = () => {
               placeholder="Enter new profile image url"
             />
             <p className="label text-error">{errors.name?.message}</p>
+            <p className="label"><span className="font-semibold">NB:</span> If image link is invalid the first letter of the name will be shown as profile picture</p>
           </fieldset>
           <button
             type="submit"

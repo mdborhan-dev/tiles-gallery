@@ -8,6 +8,8 @@ import { FiLogOut } from "react-icons/fi";
 import { MdEdit } from "react-icons/md";
 import { PropagateLoader } from "react-spinners";
 
+
+
 const MyprofilePage = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
