@@ -46,14 +46,13 @@ const Navbar = () => {
         <li>
           <NavLink href="/all-tiles">All Tiles</NavLink>
         </li>
-        {session?.user && (
-          <li>
-            <NavLink href="/profile">My Profile</NavLink>
-          </li>
-        )}
+
+        <li>
+          <NavLink href="/profile">My Profile</NavLink>
+        </li>
       </ul>
       {isPending ? (
-        <PropagateLoader color="#c88651"/>
+        <PropagateLoader color="#c88651" />
       ) : session?.user ? (
         <Link
           href={"/profile"}
